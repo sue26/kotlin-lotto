@@ -6,7 +6,7 @@ import lotto.domain.prize.LottoPrizeResult
 
 object OutputView {
     fun printNumberOfLottosBought(customLottoNumber: Int, automaticLottoNumber: Int) {
-        println("수동으로 ${customLottoNumber}장, 자동으로 ${automaticLottoNumber}개를 구매했습니다.")
+        println("Custom: ${customLottoNumber}, Quick Pick: $automaticLottoNumber")
     }
 
     fun printLottoNumbers(lottos: List<Lotto>) {
@@ -15,7 +15,7 @@ object OutputView {
 
     fun printLottoPrizeStatistics(payment: Int, prizeResult: LottoPrizeResult) {
         println()
-        println("당첨 통계")
+        println("Winning Statistics")
         println("---------")
         printHitLottoPrizes(prizeResult)
         printProfitRate(payment, prizeResult.totalPrizeAmount)
@@ -28,18 +28,18 @@ object OutputView {
 
     private fun LottoPrize.printStatistics(totalNumber: Int) {
         val bonusMatchString = when (matchesBonus) {
-            true -> ", 보너스 볼 일치"
+            true -> ", and a bonus number"
             false -> ""
         }
-        println("${numberOfMatches}개 일치$bonusMatchString (${prizeAmount}원)- ${totalNumber}개")
+        println("Matched $numberOfMatches winning numbers$bonusMatchString (${prizeAmount}₩)- $totalNumber lottery tickets")
     }
 
     private fun printProfitRate(payment: Int, totalPrizeAmount: Int) {
         val profitRate = totalPrizeAmount.toFloat() / payment
         val profitString = when {
-            profitRate < 1 -> "손해"
-            else -> "이득"
+            profitRate < 1 -> "lost"
+            else -> "won"
         }
-        println("총 수익률은 ${String.format("%.2f", profitRate)}입니다.(기준이 1이기 때문에 결과적으로 ${profitString}라는 의미임)")
+        println("Profitability: ${String.format("%.2f", profitRate)} (You ${profitString} money)")
     }
 }
