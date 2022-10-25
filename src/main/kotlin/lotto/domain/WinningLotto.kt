@@ -9,7 +9,7 @@ class WinningLotto(winningNumbers: List<Int>, bonusNumber: Int) {
     val bonusNumber = LottoNumber.from(bonusNumber)
 
     init {
-        require(!winningNumbers.contains(bonusNumber)) { "당첨번호와 보너스번호는 겹칠 수 없습니다." }
+        require(!winningNumbers.contains(bonusNumber)) { "A bonus number cannot be a winning number." }
     }
 
     fun getLottoPrizeOf(lotto: Lotto): LottoPrize = LottoPrize.of(getNumberOfMatchingNumbers(lotto), matchesBonus(lotto))
