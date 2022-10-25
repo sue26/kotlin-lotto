@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 class WinningLottoTest {
     @Test
-    fun `당첨 번호는 사용자가 입력한 숫자로 이루어져있다`() {
+    fun `The winning numbers are entered by the player`() {
         val winningNumbers = listOf(10, 20, 30, 35, 40, 45)
         val winningLotto = WinningLotto(winningNumbers, 7)
 
@@ -18,7 +18,7 @@ class WinningLottoTest {
     }
 
     @Test
-    fun `보너스 볼 번호를 저장해야 한다`() {
+    fun `A bonus number is stored with the winning numbers`() {
         val winningNumbers = listOf(10, 20, 30, 35, 40, 45)
         val bonusBallNumber = 7
         val winningLotto = WinningLotto(winningNumbers, bonusBallNumber)
@@ -27,7 +27,7 @@ class WinningLottoTest {
     }
 
     @Test
-    fun `보너스 볼 번호와 당첨 번호가 겹치면 IllegalArgumentsException 이 발생한다`() {
+    fun `A bonus number should not equal to any winning number, else IllegalArgumentsException is thrown`() {
         val winningNumbers = listOf(10, 20, 30, 35, 40, 45)
         val bonusBallNumber = 10
 
@@ -35,7 +35,7 @@ class WinningLottoTest {
     }
 
     @Test
-    fun `보너스 볼 번호와 겹치는지 알 수 있다`() {
+    fun `Can check whether any number matched the bonus number`() {
         val winningNumbers = listOf(10, 20, 30, 35, 40, 45)
         val bonusBallNumber = 1
         val winningLotto = WinningLotto(winningNumbers, bonusBallNumber)
@@ -48,7 +48,7 @@ class WinningLottoTest {
     }
 
     @Test
-    fun `각 로또마다 당첨번호와 몇 개 겹치는지 계산할 수 있다`() {
+    fun `Can check the total number of matched numbers`() {
         val winningNumbers = listOf(10, 20, 30, 35, 40, 45)
         val winningLotto = WinningLotto(winningNumbers, 7)
 
@@ -59,7 +59,7 @@ class WinningLottoTest {
     }
 
     @Test
-    fun `당첨 번호와 순서가 달라도 몇 개 겹치는지 계산할 수 있다`() {
+    fun `Can check the total number of matched numbers (different order)`() {
         val winningNumbers = listOf(10, 20, 30, 35, 40, 45)
         val winningLotto = WinningLotto(winningNumbers, 7)
 
@@ -70,7 +70,7 @@ class WinningLottoTest {
     }
 
     @Test
-    fun `당첨 번호와 보너스 번호가 겹치는지에 따라 그에 맞는 LottoPrize 를 반환할 수 있다`() {
+    fun `LottoPrize is calculated based on the number of matching numbers`() {
         val winningNumbers = listOf(10, 20, 30, 35, 40, 45)
         val bonusBallNumber = 1
         val winningLotto = WinningLotto(winningNumbers, bonusBallNumber)

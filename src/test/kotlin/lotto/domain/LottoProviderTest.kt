@@ -11,24 +11,24 @@ import org.junit.jupiter.params.provider.CsvSource
 
 class LottoProviderTest {
     @Nested
-    @DisplayName("수동으로 구매한 로또가 없을 경우")
+    @DisplayName("No custom lottery tickets")
     inner class WithoutCustomLotto {
         @Test
-        fun `로또 1장의 가격은 1000원이다`() {
+        fun `A lottery ticket costs 1000 won`() {
             val price = LottoProvider.LOTTO_PRICE
 
             assertThat(price).isEqualTo(1000)
         }
 
         @Test
-        fun `구입금액으로 살 수 있는 로또 개수를 계산할 수 있다`() {
+        fun `Total number of lottery tickets is calculated based on the amount given`() {
             val payment = 14300
 
             assertThat(LottoProvider(payment).numberOfAutomaticLottos).isEqualTo(14)
         }
 
         @Test
-        fun `구입한 로또의 수 만큼 로또를 생성한다`() {
+        fun `# of quick pick lottery tickets should equal to the total # of lottery tickets`() {
             val payment = 20500
             val provider = LottoProvider(payment)
 
@@ -36,7 +36,7 @@ class LottoProviderTest {
         }
 
         @Test
-        fun `구입 금액이 로또 금액보다 낮다면 로또를 살 수 없다`() {
+        fun `Cannot buy a lottery ticket with the amount less than one lottery ticket`() {
             val provider = LottoProvider(0)
 
             assertThat(provider.numberOfAutomaticLottos).isEqualTo(0)
@@ -44,10 +44,10 @@ class LottoProviderTest {
     }
 
     @Nested
-    @DisplayName("수동으로 구매한 로또가 있을 경우")
+    @DisplayName("If some are custom")
     inner class WithCustomLotto {
         @Test
-        fun `수동으로 구매할 로또 수만큼 로또를 생성한 후 나머지는 자동생성한다`() {
+        fun `The total # of lottery tickets equal to the sum of custom and quick pick tickets`() {
             val totalPayment = 5000
 
             val customLottoNumbers = listOf(
@@ -62,7 +62,7 @@ class LottoProviderTest {
             assertThat(lottoProvider.lottos.size).isEqualTo(5)
         }
         @Test
-        fun `사용자가 입력한 번호로 수동 로또를 생성한다`() {
+        fun `Custom lottery numbers are picked by a player`() {
             val totalPayment = 5000
 
             val customLottoNumbers = listOf(
@@ -76,7 +76,7 @@ class LottoProviderTest {
         }
 
         @Test
-        fun `만약 구매 금액보다 많은 수동 로또 수가 주어졌을 경우 IllegalArgumentException 이 발생한다`() {
+        fun `IllegalArgumentException is thrown if more tickets are provided than the amount paid`() {
             val totalPayment = 1000
 
             val customLottoNumbers = listOf(
@@ -89,7 +89,7 @@ class LottoProviderTest {
 
         @ParameterizedTest
         @CsvSource("1000, 0, true", "1000, 1, true", "1000, 2, false")
-        fun `구매 금액으로 원하는 만큼 로또를 살 수 있는지 알 수 있다`(payment: Int, numberOfLottoRequested: Int, result: Boolean) {
+        fun `The result should tell whether requested number of tickets can be bought with the amount given`(payment: Int, numberOfLottoRequested: Int, result: Boolean) {
             assertThat(LottoProvider.isAffordable(payment, numberOfLottoRequested)).isEqualTo(result)
         }
     }

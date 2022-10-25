@@ -6,14 +6,14 @@ import org.junit.jupiter.api.Test
 
 class LottoNumberTest {
     @Test
-    fun `로또 번호는 1과 45 사이의 번호로 이루어져 있다`() {
+    fun `Lotto number is from 1 to 45`() {
         val lottoNumbers = (1..45).map { it }
 
         Assertions.assertThatNoException().isThrownBy { lottoNumbers.map { LottoNumber.from(it) } }
     }
 
     @Test
-    fun `1 과 45 사이의 숫자가 아닐 경우 IllegalArgumentException 을 반환한다`() {
+    fun `If a lotto number is less than 1 or greater than 45, IllegalArgumentException is thrown`() {
         val lessThanOneLottoNumber = 0
         val greaterThanFortyFiveLottoNumber = 46
 
@@ -22,7 +22,7 @@ class LottoNumberTest {
     }
 
     @Test
-    fun `각 로또 번호당 하나의 LottoNumber 가 생성되어 있다`() {
+    fun `LottoNumber instance is created per number`() {
         val lottoNumber1 = LottoNumber.from(2)
         val lottoNumber2 = LottoNumber.from(2)
 

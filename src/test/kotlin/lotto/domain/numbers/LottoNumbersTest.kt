@@ -7,18 +7,18 @@ import org.junit.jupiter.api.Test
 
 class LottoNumbersTest {
     @Nested
-    inner class `랜덤으로 생성될 경우` {
+    inner class `Quick Pick` {
         @Test
-        fun `총 6개의 랜덤 숫자로 구성되어 있다`() {
+        fun `Six random numbers`() {
             val lottoNumbers = LottoNumbers().list
             assertThat(lottoNumbers).hasSize(6)
         }
     }
 
     @Nested
-    inner class `사용자가 입력한 숫자로 생성될 경우` {
+    inner class `Custom Numbers` {
         @Test
-        fun `사용자가 입력한 6개의 숫자를 반환한다`() {
+        fun `Six player-picked numbers`() {
             val customLottoNumbers = listOf(1, 2, 3, 4, 5, 6)
             val lottoNumbers = LottoNumbers(customLottoNumbers)
 
@@ -28,7 +28,7 @@ class LottoNumbersTest {
         }
 
         @Test
-        fun `총 6개의 숫자가 주어지지 않을 경우 IllegalArgumentException 을 반환한다`() {
+        fun `If a player enters less than or more than six numbers, IllegalArgumentException is thrown`() {
             val moreThanSix = listOf(1, 2, 3, 4, 5, 6, 7)
             val lessThanSix = listOf(1, 2, 3, 4, 5)
 

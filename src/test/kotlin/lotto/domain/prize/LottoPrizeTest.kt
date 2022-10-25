@@ -5,7 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
 class LottoPrizeTest {
-    @ParameterizedTest(name = "{0}개 일치하고 보너스 번호 일치여부가 {1}라면 당첨금액은 {2} 이다.")
+    @ParameterizedTest(name = "Matched : {0}, Bonus : {1} - Prize : {2}")
     @CsvSource(
         "0, false, 0",
         "1, false, 0",
@@ -16,7 +16,7 @@ class LottoPrizeTest {
         "5, true, 30000000",
         "6, false, 2000000000"
     )
-    fun `일치하는 번호 수에 따라 당첨 금액이 달라진다`(numberOfMatches: Int, matchesBonus: Boolean, expected: Int) {
+    fun `The prize money is calculated based on the number of matching numbers`(numberOfMatches: Int, matchesBonus: Boolean, expected: Int) {
         Assertions.assertThat(LottoPrize.of(numberOfMatches, matchesBonus).prizeAmount).isEqualTo(expected)
     }
 }
